@@ -1,0 +1,19 @@
+---
+- name: install hdparm
+  apt:
+    name:
+      - hdparm
+    cache_valid_time: "{{ apt_cache_valid_time }}"
+    update_cache: yes
+    state: present
+
+- name: config hdparm
+  copy:
+    src: "{{ hdparm_conf }}"
+    dest: /etc/hdparm.conf
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  notify: restart hdparm
+
